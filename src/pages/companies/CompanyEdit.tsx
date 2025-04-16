@@ -34,8 +34,6 @@ type companyFormInputs = z.infer<typeof companySchema>
 const CompanyEdit = () => {
     const { id } = useParams()
     const [company, setCompany] = useState<Partial<companyFormInputs>>({})
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
     const navigate = useNavigate()
     const { toast } = useToast()
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -55,9 +53,8 @@ const CompanyEdit = () => {
                 })
                 setCompany(response.data)
             } catch (error) {
-                setError('Error searching for company.')
             } finally {
-                setLoading(false)
+                // setLoading(false)
             }
         }
         fetchCompany()
@@ -68,7 +65,7 @@ const CompanyEdit = () => {
         handleSubmit,
         setValue,
         watch,
-        formState: { errors, isValid, dirtyFields }
+        formState: { errors, isValid }
     } = useForm<companyFormInputs>({
         resolver: zodResolver(companySchema),
         mode: 'onChange'
@@ -109,27 +106,13 @@ const CompanyEdit = () => {
             })
             setTimeout(() => {
                 navigate('/companies/list')
-                setError('')
             }, 3000)
-            setError('')
         } catch (error) {
             toast({
                 title: 'Company update ERROR',
                 variant: 'destructive'
             })
-            setError('An error occurred while trying to register')
         }
-    }
-
-    const handleButtonCancel = () => {
-        toast({
-            title: 'Registered canceled',
-            variant: 'cancel'
-        })
-        setTimeout(() => {
-            navigate('/companies/list')
-            setError('')
-        }, 2000)
     }
 
     const breadcrumbItems = [{ label: 'Companies' }, { label: 'Edit Company' }]
@@ -173,7 +156,6 @@ const CompanyEdit = () => {
                                             id="name"
                                             placeholder="Enter comapany name*"
                                             required
-                                            name="name"
                                             {...register('name')}
                                             className="bg-primary-100"
                                         />
@@ -188,13 +170,12 @@ const CompanyEdit = () => {
                                             id="member_cnt"
                                             placeholder="Enter memeber count*"
                                             required
-                                            name="member_cnt"
                                             {...register('member_cnt')}
                                             className="bg-primary-100"
                                         />
                                         {errors.member_cnt && <p className="text-red-500">{errors.member_cnt.message}</p>}
                                         <span className="text-xs text-black-500 float-right">
-                                            • Max. 30 Caracteress
+                                            • Max. 30 Characters
                                         </span>
                                     </div>
                                 </div>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Layout from '@/layouts/Layout';
 import config from '../../../config/index';
 import { Card, CardContent } from '@/components/ui/card';
-import { Eye, Edit, Trash } from 'lucide-react';
+// import { Eye, Edit, Trash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -33,7 +33,7 @@ const CompanyList: React.FC = () => {
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [totalItems, setTotalItems] = useState<number>(0);
-    const [itemsPerPage, setItemsPerPage] = useState<number>(5);
+    const itemsPerPage = 5;
 
     const navigate = useNavigate();
 
@@ -87,11 +87,6 @@ const CompanyList: React.FC = () => {
         if (page < totalPages) {
             setPage(page + 1);
         }
-    };
-
-    const handleItemsPerPageChange = (value: number) => {
-        setItemsPerPage(value);
-        setPage(1);
     };
 
     const openModal = (companyId: string) => {
@@ -186,13 +181,13 @@ const CompanyList: React.FC = () => {
                                                     <td className="px-4 py-2 text-left">{new Date(company.created_at).toLocaleDateString()}</td>
                                                     <td className="px-4 py-2 text-right">
                                                         <button className="text-black-500 mr-2" onClick={() => openDetail(company.id)}>
-                                                            <Eye className="inline-block w-5 h-5" />
+                                                            {/* <Eye className="inline-block w-5 h-5" /> */}
                                                         </button>
                                                         <button className="text-black-500 mr-2" onClick={() => navigate(`/companies/edit/${company.id}`)}>
-                                                            <Edit className="inline-block w-5 h-5" />
+                                                            {/* <Edit className="inline-block w-5 h-5" /> */}
                                                         </button>
                                                         <button className="text-black-500" onClick={() => openModal(company.id)}>
-                                                            <Trash className="inline-block w-5 h-5" />
+                                                            {/* <Trash className="inline-block w-5 h-5" /> */}
                                                         </button>
                                                     </td>
                                                 </tr>

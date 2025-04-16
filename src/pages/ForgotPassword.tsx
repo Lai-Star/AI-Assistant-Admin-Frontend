@@ -15,13 +15,12 @@ import { useToast } from '@/hooks/use-toast.ts'
 const ForgotPassword: React.FC = () => {
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
-    const [error, setError] = useState('')
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const { toast } = useToast()
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             const response = await axios.post('http://localhost:3000/send-reset-email', { email })
@@ -38,11 +37,6 @@ const ForgotPassword: React.FC = () => {
     // Função para abrir o modal
     const openModal = () => {
         setIsModalOpen(true)
-    }
-
-    // Função para fechar o modal
-    const closeModal = () => {
-        setIsModalOpen(false)
     }
 
     return (
@@ -88,10 +82,9 @@ const ForgotPassword: React.FC = () => {
                                             onChange={(e) => setEmail(e.target.value)}
                                             required
                                         />
-                                        {error && <p className="text-red-500 text-sm">{error}</p>}
                                     </div>
                                     <Button
-                                        // onClick={openModal}
+                                        onClick={openModal}
                                         type="submit"
                                         style={{ backgroundColor: '#0290A4' }}
                                         className="w-full"
@@ -114,7 +107,7 @@ const ForgotPassword: React.FC = () => {
                             </div>
                         </CardFooter>
                     </Card>
-                    <ModalSendEmailComponet isOpen={isModalOpen} onClose={closeModal} />
+                    <ModalSendEmailComponet isOpen={isModalOpen} />
                 </div>
             </div>
         </>

@@ -12,7 +12,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 const ResetPassword: React.FC = () => {
     const [newPassword, setNewPassword] = useState<string>('');
     const [message, setMessage] = useState<string>('');
-    const [error, setError] = useState<string>('');
+    // const [error, setError] = useState<string>('');
     const navigate = useNavigate();
 
     // Typing the token as optional string
@@ -71,7 +71,7 @@ const ResetPassword: React.FC = () => {
                                         onChange={(e) => setNewPassword(e.target.value)}
                                         required
                                     />
-                                    {error && <p className="text-red-500 text-sm">{error}</p>}
+                                    {/* {error && <p className="text-red-500 text-sm">{error}</p>} */}
                                 </div>
                                 <Button
                                     type="submit"

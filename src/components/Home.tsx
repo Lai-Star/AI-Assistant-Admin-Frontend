@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '@/layouts/Layout.tsx';
+import Layout from '@/layouts/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import logo2 from '@/assets/icons/01_welcome.png';
 import TitleComponent from '@/components/TitleComponent';
@@ -12,7 +12,6 @@ interface User {
 }
 
 const Home: React.FC = () => {
-    const [currentDate, setCurrentDate] = useState<string>('') // Current date as string
     const [user, setUser] = useState<User | null>(null) // User state can be of type User or null
     const navigate = useNavigate()
 

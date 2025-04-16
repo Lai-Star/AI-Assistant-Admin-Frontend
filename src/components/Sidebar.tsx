@@ -3,13 +3,10 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import UpArrow from "../assets/icons/svg/Group 47400.svg";
-import ClosedLogo from "../assets/icons/svg/Group 48700.svg";
 import IconLogo from "../assets/icons/08_chart.png";
 import IconSideControl from "../assets/icons/03_user.png";
 import IconSideUser from "../assets/icons/07_profile.png";
 import SideBarArrow from "../assets/icons/svg/Group 47408.svg";
-import { DASHBOARD_SIDEBAR_LINKS } from "../lib/sidebar_menus.js";
-import logo2 from "@/assets/icons/Group 48687@2x.png";
 
 const linkClass =
   "flex items-center gap-2 px-3 py-2 hover:no-underline hover:bg-custom-active rounded-sm text-base";
@@ -17,28 +14,6 @@ const linkSubClass =
   "flex gap-2 w-52 px-2 items-center hover:no-underline hover:bg-custom-active rounded-sm text-base";
 const ListClass =
   "flex gap-2 px-2 items-center  hover:no-underline rounded-sm text-white";
-
-function OpenSidebarLink({ link }) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-
-  const toggleList = (id) => {
-    setExpandedId((prevId) => (prevId === id ? null : id));
-  };
-
-  const { pathname } = useLocation();
-  return (
-    <Link
-      className={classNames(
-        pathname === link.path
-          ? "text-sm bg-custom-active flex justify-center text-black font-extrabold"
-          : "text-white text-sm flex justify-center font-extrabold",
-        linkClass
-      )}
-    >
-      <span className="text-xl text-center">{link.icon}</span>
-    </Link>
-  );
-}
 
 const Sidebar: React.FC = () => {
   const [UserLink, SetUserLink] = useState(false);
@@ -51,54 +26,48 @@ const Sidebar: React.FC = () => {
 
   const [SideBarStatus, SetSidebar] = useState(true);
 
-  const [Logo, Setlogo] = useState(logo2);
-
   const toggleSideBar = () => {
     if (SideBarStatus) {
-      Setlogo(ClosedLogo);
+        let mainsDiv = document.querySelectorAll<HTMLElement>('.main-div');
+        mainsDiv.forEach((div) => {
+            div.classList.add("w-32");
+            div.classList.remove("w-72");
+        });
 
-      let mainsDiv = document.querySelectorAll(".main-div");
-      mainsDiv.forEach((div) => {
-        div.classList.add("w-32");
-        div.classList.remove("w-72");
-      });
+        const AllsP = document.querySelectorAll<HTMLElement>('#remove-p');
+        AllsP.forEach((p) => {
+            p.style.display = "none"; // Now TypeScript knows p is an HTMLElement
+        });
 
-      const AllsP = document.querySelectorAll("#remove-p");
-      AllsP.forEach((p) => {
-        p.style.display = "none";
-      });
+        SetUserLink(false);
 
-      SetUserLink(false);
-
-      const sideBarArrow = document.querySelector(".sideBarArrow");
-      if (sideBarArrow) {
-        sideBarArrow.style.transform = "rotate(180deg)";
-        sideBarArrow.style.left = "80px";
-      }
+        const sideBarArrow = document.querySelector<HTMLElement>(".sideBarArrow");
+        if (sideBarArrow) {
+            sideBarArrow.style.transform = "rotate(180deg)";
+            sideBarArrow.style.left = "80px";
+        }
     } else {
-      Setlogo(logo2);
+        let mainsDiv = document.querySelectorAll<HTMLElement>('.main-div');
 
-      let mainsDiv = document.querySelectorAll(".main-div");
+        mainsDiv.forEach((div) => {
+            div.classList.add("w-72");
+            div.classList.remove("w-32");
+        });
 
-      mainsDiv.forEach((div) => {
-        div.classList.add("w-72");
-        div.classList.remove("w-32");
-      });
+        const AllsP = document.querySelectorAll<HTMLElement>('#remove-p');
+        AllsP.forEach((p) => {
+            p.style.display = "block"; // Now TypeScript knows p is an HTMLElement
+        });
 
-      const AllsP = document.querySelectorAll("#remove-p");
-      AllsP.forEach((p) => {
-        p.style.display = "block";
-      });
+        const sideBarArrow = document.querySelector<HTMLElement>(".sideBarArrow");
+        if (sideBarArrow) {
+            sideBarArrow.style.transform = "rotate(360deg)";
+            sideBarArrow.style.left = "240px";
+        }
 
-      const sideBarArrow = document.querySelector(".sideBarArrow");
-      if (sideBarArrow) {
-        sideBarArrow.style.transform = "rotate(360deg)";
-        sideBarArrow.style.left = "240px";
-      }
-
-      if (pathname === "/companies") {
-        SetUserLink(true);
-      }
+        if (pathname === "/companies") {
+            SetUserLink(true);
+        }
     }
     SetSidebar(!SideBarStatus);
   };

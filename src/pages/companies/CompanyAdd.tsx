@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import Layout from '@/layouts/Layout.tsx'
 import config from '../../../config/index.tsx'
 import { Input } from '@/components/ui/input.tsx'
@@ -28,15 +27,15 @@ const companySchema = z
         //     .min(6, 'A senha deve ter no mínimo 6 caracteres')
         //     .regex(/^[a-zA-Z0-9]+$/, 'A senha deve ser alfanumérica')
     })
-    .refine((data) => data.password === data.confirmationPassword, {
-        path: ['confirmationPassword'],
-        message: 'Passwords do not match'
-    })
+    // .refine((data) => data.password === data.confirmationPassword, {
+    //     path: ['confirmationPassword'],
+    //     message: 'Passwords do not match'
+    // })
 
-type companyFormInputs = z.infer<typeof companySchema>
+// type CompanySchema = z.infer<typeof companySchema>;
 
 const CompanyAdd = () => {
-    const [error, setError] = useState('')
+    // const [error, setError] = useState('')
     const navigate = useNavigate()
     const { toast } = useToast()
 
@@ -65,7 +64,7 @@ const CompanyAdd = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            const response = await axios.post(`http://${config.serverUrl}/api/companies/save`,
+            await axios.post(`http://${config.serverUrl}/api/companies/save`,
                 formData,
                 {
                     headers
@@ -77,16 +76,16 @@ const CompanyAdd = () => {
             })
             setTimeout(() => {
                 navigate('/companies/list')
-                setError('')
+                // setError('')
             }, 3000)
-            setError('')
+            // setError('')
         } catch (err) {
             console.error(err)
             toast({
                 title: 'Registration not completed',
                 variant: 'destructive'
             })
-            setError('An error occurred while trying to register')
+            // setError('An error occurred while trying to register')
         }
     }
     const handleButtonCancel = () => {
@@ -96,7 +95,7 @@ const CompanyAdd = () => {
         })
         setTimeout(() => {
             navigate('/companies/list')
-            setError('')
+            // setError('')
         }, 2000)
     }
 
@@ -124,7 +123,6 @@ const CompanyAdd = () => {
                                         <Input
                                             type="text"
                                             id="name"
-                                            name="name"
                                             placeholder="Enter name*"
                                             required
                                             {...register('name')}
@@ -137,7 +135,7 @@ const CompanyAdd = () => {
                                                           'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
                                                 }`}
                                         />
-                                        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                                        {errors.name && <p className="text-red-500">{(errors.name as any).message}</p>}
                                     </div>
                                     <div className="w-1/2">
                                         <input type='file' />
@@ -279,9 +277,8 @@ const CompanyAdd = () => {
                                     </Button>
                                     <Button
                                         type="submit"
-                                        // className={`bg-primary-400 text-white px-4 py-2 ${!isValid ? 'bg-primary-200 opacity-50 cursor-not-allowed' : ''}`}
-                                        className={`bg-primary-400 text-white px-4 py-2`}
-                                        // disabled={!isValid}
+                                        className={`bg-primary-400 text-white px-4 py-2 ${!isValid ? 'bg-primary-200 opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={!isValid}
                                     >
                                         Register
                                     </Button>

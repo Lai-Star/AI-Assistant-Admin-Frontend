@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Avatar, AvatarFallback } from './ui/avatar.tsx'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from './ui/dropdown-menu.tsx'
-import { ArrowBigLeftDash } from 'lucide-react'
+// import { ArrowBigLeftDash } from 'lucide-react'
 export default function Header() {
     const [user, setUser] = useState<{ name: string; email: string } | null>(null)
 
@@ -55,7 +55,7 @@ export default function Header() {
                         </div>
                     </div>
                     <div className="flex flex-row items-center">
-                        <ArrowBigLeftDash />
+                        {/* <ArrowBigLeftDash /> */}
                         <DropdownMenuItem onClick={handleLogout}>Sair</DropdownMenuItem>
                     </div>
                 </DropdownMenuContent>
