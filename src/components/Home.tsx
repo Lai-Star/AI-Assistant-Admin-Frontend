@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '@/layouts/Layout';
+import Layout from '@/layouts/Layout.tsx';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import logo2 from '@/assets/icons/01_welcome.png';
 import TitleComponent from '@/components/TitleComponent';
@@ -12,31 +12,31 @@ interface User {
 }
 
 const Home: React.FC = () => {
-    const [currentDate, setCurrentDate] = useState<string>(''); // Current date as string
-    const [user, setUser] = useState<User | null>(null); // User state can be of type User or null
-    const navigate = useNavigate();
+    const [currentDate, setCurrentDate] = useState<string>('') // Current date as string
+    const [user, setUser] = useState<User | null>(null) // User state can be of type User or null
+    const navigate = useNavigate()
 
     useEffect(() => {
-        const accessToken = localStorage.getItem('access_token');
-        const userData = localStorage.getItem('user');
+        const accessToken = localStorage.getItem('access_token')
+        const userData = localStorage.getItem('user')
 
         if (!accessToken) {
-            navigate('/login');
+            navigate('/login')
         } else {
-            setUser(JSON.parse(userData || '{}')); // Parsing userData to set user
+            setUser(JSON.parse(userData || '{}')) // Parsing userData to set user
         }
-    }, [navigate]);
+    }, [navigate])
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>
     }
 
     // Create formatted date
-    const date = new Date();
-    const day = new Intl.DateTimeFormat('pt-BR', { day: 'numeric' }).format(date);
-    const month = new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(date);
-    const year = new Intl.DateTimeFormat('pt-BR', { year: 'numeric' }).format(date);
-    const formattedDate = `${day}, ${month.charAt(0).toUpperCase() + month.slice(1)} ${year}`;
+    const date = new Date()
+    const day = new Intl.DateTimeFormat('pt-BR', { day: 'numeric' }).format(date)
+    const month = new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(date)
+    const year = new Intl.DateTimeFormat('pt-BR', { year: 'numeric' }).format(date)
+    const formattedDate = `${day}, ${month.charAt(0).toUpperCase() + month.slice(1)} ${year}`
 
     return (
         <Layout>
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
                 </Card>
             </div>
         </Layout>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home

@@ -42,4 +42,4 @@ const ModalDeleteComponent: React.FC<ModalDeleteComponentProps> = ({
     );
 };
 
-export default ModalDeleteComponent;
+export default ModalDeleteComponent

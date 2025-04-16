@@ -42,4 +42,4 @@ const ModalEditCancelComponent: React.FC<ModalEditCancelComponentProps> = ({
     );
 };
 
-export default ModalEditCancelComponent;
+export default ModalEditCancelComponent
