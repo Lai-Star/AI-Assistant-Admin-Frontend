@@ -1,119 +1,138 @@
-import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
-import Layout from '@/layouts/Layout.tsx'
-import config from '../../../config/index.tsx'
-import { Card, CardContent } from '@/components/ui/card.tsx'
-import { Eye, Edit, Trash } from 'lucide-react'
-import { Input } from '@/components/ui/input.tsx'
-import React, { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button.tsx'
-import CompanyDetail from '@/pages/companies/CompanyDetail'
-import TitleComponent from '@/components/TitleComponent.tsx'
-import ModalDeleteComponet from '@/components/ModalDeleteComponet.tsx'
-import { Toaster } from '@/components/ui/toaster.tsx'
-import { useToast } from '@/hooks/use-toast.ts'
-import logoNoSearch from '@/assets/icons/svg/Group 47851.svg'
-// import { Pagination } from '@components/ui/Pagination.tsx'
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import Layout from '@/layouts/Layout';
+import config from '../../../config/index';
+import { Card, CardContent } from '@/components/ui/card';
+import { Eye, Edit, Trash } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import React, { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import CompanyDetail from '@/pages/companies/CompanyDetail';
+import TitleComponent from '@/components/TitleComponent';
+import ModalDeleteComponet from '@/components/ModalDeleteComponet';
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/hooks/use-toast';
+import logoNoSearch from '@/assets/icons/svg/Group 47851.svg';
+
+interface LeaderUser {
+    name: string;
+    email: string;
+}
+
+interface Company {
+    id: string;
+    name: string;
+    leader_user?: LeaderUser;
+    member_cnt: number;
+    created_at: string;
+}
 
 const CompanyList: React.FC = () => {
-    const [companies, setCompanies] = useState([])
+    const [companies, setCompanies] = useState<Company[]>([]);
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [page, setPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
+    const [totalItems, setTotalItems] = useState<number>(0);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 
-    const [searchTerm, setSearchTerm] = useState('')
-    const [page, setPage] = useState(1)
-    const [totalPages, setTotalPages] = useState(1)
-    const [totalItems, setTotalItems] = useState(0)
-    const [itemsPerPage, setItemsPerPage] = useState(5)
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
+    const [isDetailOpen, setIsDetailOpen] = useState<boolean>(false);
+    const [noResults, setNoResults] = useState<boolean>(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [selectedCompanyId, setSelectedCompanyId] = useState(null)
-    const [isDetailOpen, setIsDetailOpen] = useState(false)
-
-    const [noResults, setNoResults] = useState(false)
-
-    const { toast } = useToast()
+    const { toast } = useToast();
 
     const fetchCompanies = async () => {
         try {
             const headers = {
-                'Authorization': `${localStorage.getItem('access_token')}`,  // Use the appropriate header name
-                'Content-Type': 'application/json',  // Set content type if necessary
-            }
+                'Authorization': `${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json',
+            };
+
             const response = await axios.get(`http://${config.serverUrl}/api/companies/all`, {
                 headers,
                 params: {
                     page,
                     limit: itemsPerPage,
-                    name: searchTerm
-                }
-            })
-            setCompanies(response.data.data)
-            setTotalItems(response.data.meta.total)
-            setTotalPages(response.data.meta.total_pages)
-            setNoResults(response.data.data.length === 0)
+                    name: searchTerm,
+                },
+            });
+            setCompanies(response.data.data);
+            setTotalItems(response.data.meta.total);
+            setTotalPages(response.data.meta.total_pages);
+            setNoResults(response.data.data.length === 0);
         } catch (error) {
-            console.error('Error when searching companies', error)
+            console.error('Error when searching companies', error);
         }
-    }
+    };
 
     useEffect(() => {
-        fetchCompanies()
-    }, [page, searchTerm, itemsPerPage])
+        fetchCompanies();
+    }, [page, searchTerm, itemsPerPage]);
 
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value)
-        setPage(1)
-    }
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+        setPage(1);
+    };
+
     const handlePrevPage = () => {
         if (page > 1) {
-            setPage(page - 1)
+            setPage(page - 1);
         }
-    }
+    };
+
     const handleNextPage = () => {
         if (page < totalPages) {
-            setPage(page + 1)
+            setPage(page + 1);
         }
-    }
+    };
 
-    const handleItemsPerPageChange = (value) => {
-        setItemsPerPage(value)
-        setPage(1)
-    }
+    const handleItemsPerPageChange = (value: number) => {
+        setItemsPerPage(value);
+        setPage(1);
+    };
 
-    const openModal = (companyId) => {
-        setSelectedCompanyId(companyId)
-        setIsModalOpen(true)
-    }
+    const openModal = (companyId: string) => {
+        setSelectedCompanyId(companyId);
+        setIsModalOpen(true);
+    };
 
     const closeModal = () => {
-        setIsModalOpen(false)
-        setSelectedCompanyId(null)
-    }
+        setIsModalOpen(false);
+        setSelectedCompanyId(null);
+    };
 
     const handleDelete = async () => {
+        if (!selectedCompanyId) return;
+
         try {
-            await axios.delete(`http://localhost:3000/companies/${selectedCompanyId}`)
+            await axios.delete(`http://localhost:3000/companies/${selectedCompanyId}`);
             toast({
                 title: 'Deletion Completed!',
-                variant: 'success'
-            })
-            setCompanies((prevCompanies) => prevCompanies.filter((company) => company.id !== selectedCompanyId))
-            closeModal()
+                variant: 'success',
+            });
+            setCompanies((prevCompanies) => prevCompanies.filter((company) => company.id !== selectedCompanyId));
+            closeModal();
         } catch (error) {
-            setError('Error deleting company.')
+            console.error('Error deleting company:', error);
+            toast({
+                title: 'Error deleting company.',
+                variant: 'destructive',
+            });
         }
-    }
+    };
 
-    const openDetail = (companyId) => {
-        setSelectedCompanyId(companyId)
-        setIsDetailOpen(true)
-    }
+    const openDetail = (companyId: string) => {
+        setSelectedCompanyId(companyId);
+        setIsDetailOpen(true);
+    };
 
     const closeDetail = () => {
-        setIsDetailOpen(false)
-        setSelectedCompanyId(null)
-    }
+        setIsDetailOpen(false);
+        setSelectedCompanyId(null);
+    };
 
     return (
         <Layout>
@@ -139,7 +158,7 @@ const CompanyList: React.FC = () => {
                                 <div className="flex flex-col justify-center items-center h-96 bg-white py-40">
                                     <img src={logoNoSearch} alt="Logo" className="max-w-full h-[350px] align- p-4" />
                                     <h1 className="font-bold p-2">No Results Found</h1>
-                                    <p>No results could be found for your search. </p>
+                                    <p>No results could be found for your search.</p>
                                     <p>Try redoing your search to find what you're looking for.</p>
                                 </div>
                             </CardContent>
@@ -166,22 +185,13 @@ const CompanyList: React.FC = () => {
                                                     <td className="px-4 py-2 text-left">{company.member_cnt}</td>
                                                     <td className="px-4 py-2 text-left">{new Date(company.created_at).toLocaleDateString()}</td>
                                                     <td className="px-4 py-2 text-right">
-                                                        <button
-                                                            className="text-black-500 mr-2"
-                                                            onClick={() => openDetail(company.id)}
-                                                        >
+                                                        <button className="text-black-500 mr-2" onClick={() => openDetail(company.id)}>
                                                             <Eye className="inline-block w-5 h-5" />
                                                         </button>
-                                                        <button
-                                                            className="text-black-500 mr-2"
-                                                            onClick={() => navigate(`/companies/edit/${company.id}`)}
-                                                        >
+                                                        <button className="text-black-500 mr-2" onClick={() => navigate(`/companies/edit/${company.id}`)}>
                                                             <Edit className="inline-block w-5 h-5" />
                                                         </button>
-                                                        <button
-                                                            className="text-black-500"
-                                                            onClick={() => openModal(company.id)}
-                                                        >
+                                                        <button className="text-black-500" onClick={() => openModal(company.id)}>
                                                             <Trash className="inline-block w-5 h-5" />
                                                         </button>
                                                     </td>
@@ -207,6 +217,7 @@ const CompanyList: React.FC = () => {
                         {isDetailOpen && <CompanyDetail companyId={selectedCompanyId} onClose={closeDetail} />}
                     </div>
                 </Card>
+                
                 {/* Pagination controls */}
                 {/* <Pagination /> */}
                 <div className="flex justify-between mt-4">
@@ -243,6 +254,7 @@ const CompanyList: React.FC = () => {
                 </div>
             </div>
         </Layout>
-    )
-}
-export default CompanyList
+    );
+};
+
+export default CompanyList;

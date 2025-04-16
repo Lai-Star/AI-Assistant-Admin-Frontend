@@ -1,7 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-function ModalEditCancelComponent({ isOpen, onClose, onConfirm, title, description }) {
-    if (!isOpen) return null
+interface ModalEditCancelComponentProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
+    title: string;
+    description: string;
+}
+
+const ModalEditCancelComponent: React.FC<ModalEditCancelComponentProps> = ({
+    isOpen,
+    onClose,
+    onConfirm,
+    title,
+    description,
+}) => {
+    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -25,7 +39,7 @@ function ModalEditCancelComponent({ isOpen, onClose, onConfirm, title, descripti
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ModalEditCancelComponent
+export default ModalEditCancelComponent;

@@ -1,7 +1,15 @@
 import React from 'react'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 
-function BreadcrumbComponent({ items }) {
+interface BreadcrumbItemType {
+    label: string;
+}
+
+interface BreadcrumbComponentProps {
+    items: BreadcrumbItemType[];
+}
+
+const BreadcrumbComponent: React.FC<BreadcrumbComponentProps> = ({ items }) => {
     return (
         <Breadcrumb>
             <BreadcrumbList>
@@ -13,7 +21,7 @@ function BreadcrumbComponent({ items }) {
                 ))}
             </BreadcrumbList>
         </Breadcrumb>
-    )
-}
+    );
+};
 
-export default BreadcrumbComponent
+export default BreadcrumbComponent;

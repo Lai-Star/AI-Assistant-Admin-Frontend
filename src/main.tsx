@@ -11,12 +11,6 @@ import CompanyList from '@/pages/companies/CompanyList.tsx'
 import CompanyAdd from '@/pages/companies/CompanyAdd.tsx'
 import CompanyEdit from '@/pages/companies/CompanyEdit.tsx'
 
-import UserGroupList from '@/pages/userGroups/UserGroupList.tsx'
-import UserGroupAdd from '@/pages/userGroups/UserGroupAdd.tsx'
-
-import UserList from '@/pages/users/UserList.tsx'
-import UserAdd from '@/pages/users/UserAdd.tsx'
-
 import Login from '@/pages/Login.tsx'
 import Loading from './pages/Loading.tsx'
 
@@ -51,24 +45,8 @@ const router = createBrowserRouter([
         element: <CompanyEdit />
     },
     {
-        path: '/userGroups/list/',
-        element: <UserGroupList />
-    },
-    {
-        path: '/userGroups/add/',
-        element: <UserGroupAdd />
-    },
-    {
         path: '/userGroups/edit/:id',
         element: <CompanyEdit />
-    },
-    {
-        path: '/users/list/',
-        element: <UserList />
-    },
-    {
-        path: '/users/add/',
-        element: <UserAdd />
     },
     {
         path: '/users/edit/:id',

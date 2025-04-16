@@ -1,34 +1,36 @@
 // src/pages/Login.tsx
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import logo1 from './../assets/icons/svg/Group 48699.svg'
-import lockicon from './../assets/icons/svg/Group 47957.svg'
-import axios from 'axios'
-import { useParams, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import logo1 from './../assets/icons/svg/Group 48699.svg';
+import lockicon from './../assets/icons/svg/Group 47957.svg';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ResetPassword: React.FC = () => {
-    const [newPassword, setNewPassword] = useState('')
-    const [message, setMessage] = useState('')
-    const [error, setError] = useState('')
-    const navigate = useNavigate()
+    const [newPassword, setNewPassword] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
+    const [error, setError] = useState<string>('');
+    const navigate = useNavigate();
 
-    const { token } = useParams()
-    console.log(token)
+    // Typing the token as optional string
+    const { token } = useParams<{ token?: string }>();
+    console.log(token);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
-            const response = await axios.post(`http://localhost:3000/reset-password/${token}`, { newPassword })
-            console.log('Senha resetada com sucesso')
-            setMessage(response.data.message)
-            navigate('/login')
+            const response = await axios.post(`http://localhost:3000/reset-password/${token}`, { newPassword });
+            console.log('Password reset successfully');
+            setMessage(response.data.message);
+            navigate('/login');
         } catch (error) {
-            setMessage('Erro ao redefinir senha.')
+            console.error('Error resetting password:', error);
+            setMessage('Error resetting password.');
         }
-    }
+    };
 
     return (
         <div
@@ -40,7 +42,7 @@ const ResetPassword: React.FC = () => {
                 <img src={lockicon} alt="Logo" className="max-w-full h-auto" />
             </div>
 
-            {/* Right Side - Login Form */}
+            {/* Right Side - Reset Password Form */}
             <div className="flex flex-col justify-center w-full max-w-md p-8">
                 <Card style={{ width: '30rem', height: '30rem' }}>
                     {/* Logo */}
@@ -49,22 +51,22 @@ const ResetPassword: React.FC = () => {
                     </div>
                     <CardHeader className="px-6 pt-10 pb-3">
                         <CardTitle style={{ color: '#0290A4' }} className="text-left text-xl font-semibold">
-                            Redefinir senha
+                            Reset Password
                         </CardTitle>
                     </CardHeader>
                     <CardHeader className="px-6 pt-0">
-                        <CardTitle className="text-left font-semibold">Redefinir senha</CardTitle>
+                        <CardTitle className="text-left font-semibold">Reset Password</CardTitle>
                     </CardHeader>
 
                     <CardContent>
                         <form onSubmit={handleSubmit}>
                             <div className="space-y-4">
                                 <div>
-                                    <Label htmlFor="email"></Label>
+                                    <Label htmlFor="newPassword">New Password</Label>
                                     <Input
                                         id="newPassword"
                                         type="password"
-                                        placeholder="digite a nova senha"
+                                        placeholder="Enter new password"
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
                                         required
@@ -72,12 +74,11 @@ const ResetPassword: React.FC = () => {
                                     {error && <p className="text-red-500 text-sm">{error}</p>}
                                 </div>
                                 <Button
-                                    // onClick={openModal}
                                     type="submit"
                                     style={{ backgroundColor: '#0290A4' }}
                                     className="w-full"
                                 >
-                                    Redefinir
+                                    Reset
                                 </Button>
                             </div>
                         </form>
@@ -86,7 +87,7 @@ const ResetPassword: React.FC = () => {
                 </Card>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ResetPassword
+export default ResetPassword;

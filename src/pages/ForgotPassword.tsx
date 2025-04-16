@@ -7,7 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/componen
 import logo1 from './../assets/icons/svg/Group 48699.svg'
 import lockicon from './../assets/icons/svg/Group 47957.svg'
 import backlogin from './../assets/icons/svg/Group 47771.svg'
-import ModalSendEmailComponet from '@/components/ModalSendEmailComponet.tsx'
+import ModalSendEmailComponet from '@/components/ModalSendEmailComponet'
 import axios from 'axios'
 import { Toaster } from '@/components/ui/toaster.tsx'
 import { useToast } from '@/hooks/use-toast.ts'

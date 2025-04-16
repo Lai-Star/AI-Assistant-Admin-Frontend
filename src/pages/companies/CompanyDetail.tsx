@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import config from '../../../config/index.tsx'
+import config from '../../../config/index.tsx';
 
-const CompanyDetail = ({ companyId, onClose }) => {
-  const [company, setCompany] = useState(null);
+interface Company {
+  name: string;
+  member_cnt: number;
+  leader_user?: {
+    email: string;
+  };
+  created_at: string;
+  updated_at: string;
+}
+
+interface CompanyDetailProps {
+  companyId: string | null;  // or 'undefined' depending on your use case
+  onClose: () => void;
+}
+
+const CompanyDetail: React.FC<CompanyDetailProps> = ({ companyId, onClose }) => {
+  const [company, setCompany] = useState<Company | null>(null);
 
   useEffect(() => {
     const fetchCompany = async () => {
       try {
         const headers = {
-          'Authorization': `${localStorage.getItem('access_token')}`,  // Use the appropriate header name
-          'Content-Type': 'application/json',  // Set content type if necessary
-        }
+          'Authorization': `${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json',
+        };
         const response = await axios.get(
           `http://${config.serverUrl}/api/companies/${companyId}`,
           {
@@ -32,7 +46,7 @@ const CompanyDetail = ({ companyId, onClose }) => {
 
   return (
     <aside className="fixed top-0 right-0 w-96 h-full bg-white shadow-lg border-l border-gray-300 p-4">
-      <div className=" flex flex-row ">
+      <div className="flex flex-row">
         <h2 className="text-2xl font-bold mb-2">View Company</h2>
         <button
           onClick={onClose}
@@ -59,13 +73,13 @@ const CompanyDetail = ({ companyId, onClose }) => {
         <div>
           <div className="flex items-center">
             <span className="mx-4 text-gray-700 font-bold">
-            Company Data
+              Company Data
             </span>
             <div className="flex-1 border-t border-gray-300"></div>
           </div>
 
-          <div className=" grid grid-cols-2 gap-4 p-4">
-            <div className="text-gray-700 ">
+          <div className="grid grid-cols-2 gap-4 p-4">
+            <div className="text-gray-700">
               <p className="text-gray-700 mb-2">Name: </p>
               <p>
                 <strong>{company.name}</strong>
@@ -90,8 +104,8 @@ const CompanyDetail = ({ companyId, onClose }) => {
             <div className="flex-1 border-t border-gray-300"></div>
           </div>
 
-          <div className=" grid grid-cols-2 gap-4 p-4">
-            <div className="text-gray-700 ">
+          <div className="grid grid-cols-2 gap-4 p-4">
+            <div className="text-gray-700">
               <p className="text-gray-700 mb-2">Date Created: </p>
               <p>
                 <strong>{new Date(company.created_at).toLocaleDateString()}</strong>
@@ -112,9 +126,9 @@ const CompanyDetail = ({ companyId, onClose }) => {
       <div className="flex justify-end p-4">
         <button
           onClick={onClose}
-          className="bg-gray-200 text-black px-4 py-2 rounded-lg hover:bg-gray-600 top-10 left-50"
+          className="bg-gray-200 text-black px-4 py-2 rounded-lg hover:bg-gray-600"
         >
-          To close
+          Close
         </button>
       </div>
     </aside>

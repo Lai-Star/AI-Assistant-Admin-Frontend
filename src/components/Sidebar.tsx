@@ -8,7 +8,7 @@ import IconLogo from "../assets/icons/08_chart.png";
 import IconSideControl from "../assets/icons/03_user.png";
 import IconSideUser from "../assets/icons/07_profile.png";
 import SideBarArrow from "../assets/icons/svg/Group 47408.svg";
-import { DASHBOARD_SIDEBAR_LINKS } from "../lib/sidebar_menus.tsx";
+import { DASHBOARD_SIDEBAR_LINKS } from "../lib/sidebar_menus.js";
 import logo2 from "@/assets/icons/Group 48687@2x.png";
 
 const linkClass =
@@ -21,7 +21,7 @@ const ListClass =
 function OpenSidebarLink({ link }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  const toggleList = (id: string) => {
+  const toggleList = (id) => {
     setExpandedId((prevId) => (prevId === id ? null : id));
   };
 
