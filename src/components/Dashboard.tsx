@@ -6,6 +6,7 @@ const Dashboard: React.FC = () => {
         <Layout>
             <h1 className="text-2xl font-bold">Dashboard</h1>
             <p>Welcome to your dashboard! This is where you can manage your settings and view your data.</p>
+            <p>Welcome to your dashboard! This is where you can manage your settings and view your data.</p>
         </Layout>
     );
 };
