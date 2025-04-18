@@ -59,6 +59,7 @@ const CompanyList: React.FC = () => {
                     name: searchTerm,
                 },
             });
+
             setCompanies(response.data.data);
             setTotalItems(response.data.meta.total);
             setTotalPages(response.data.meta.total_pages);
@@ -103,7 +104,7 @@ const CompanyList: React.FC = () => {
         if (!selectedCompanyId) return;
 
         try {
-            await axios.delete(`http://localhost:3000/companies/${selectedCompanyId}`);
+            await axios.delete(`https://${config.serverUrl}/companies/${selectedCompanyId}`);
             toast({
                 title: 'Deletion Completed!',
                 variant: 'success',

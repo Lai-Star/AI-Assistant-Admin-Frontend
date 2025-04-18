@@ -154,48 +154,6 @@ const Sidebar: React.FC = () => {
               </div>
             </Link>
           </div>
-          <div className="w-52 flex-col ">
-            <Link
-              to={"/users/list"}
-              className={classNames(
-                pathname === "/users"
-                  ? "text-sm bg-custom-active text-black font-extrabold"
-                  : "text-white text-sm font-extrabold",
-                linkSubClass
-              )}
-            >
-              <div
-                style={{ marginLeft: "1rem", marginTop: "0" }}
-                className={linkClass}
-              >
-                <img src={IconSideUser} />
-                <p id="remove-p" className="text-sm">
-                  Users
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="w-52 flex-col ">
-            <Link
-              to={"/userGroups/list"}
-              className={classNames(
-                pathname === "/userGroups"
-                  ? "text-sm bg-custom-active text-black font-extrabold"
-                  : "text-white text-sm font-extrabold",
-                linkSubClass
-              )}
-            >
-              <div
-                style={{ marginLeft: "1rem", marginTop: "0" }}
-                className={linkClass}
-              >
-                <img src={IconSideUser} />
-                <p id="remove-p" className="text-sm">
-                  User groups
-                </p>
-              </div>
-            </Link>
-          </div>
         </div>
       </div>
       <div

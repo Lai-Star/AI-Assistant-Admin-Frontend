@@ -22,7 +22,7 @@ import ResetPassword from '@/pages/ResetPassword.tsx'
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />
+        element: <Login />
     },
     {
         path: '/home',
@@ -42,14 +42,6 @@ const router = createBrowserRouter([
     },
     {
         path: '/companies/edit/:id',
-        element: <CompanyEdit />
-    },
-    {
-        path: '/userGroups/edit/:id',
-        element: <CompanyEdit />
-    },
-    {
-        path: '/users/edit/:id',
         element: <CompanyEdit />
     },
     {

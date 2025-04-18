@@ -22,7 +22,7 @@ const ResetPassword: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://localhost:3000/reset-password/${token}`, { newPassword });
+            const response = await axios.post(`https://localhost:3000/reset-password/${token}`, { newPassword });
             console.log('Password reset successfully');
             setMessage(response.data.message);
             navigate('/login');

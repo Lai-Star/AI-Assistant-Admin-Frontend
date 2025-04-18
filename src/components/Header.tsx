@@ -56,7 +56,7 @@ export default function Header() {
                     </div>
                     <div className="flex flex-row items-center">
                         {/* <ArrowBigLeftDash /> */}
-                        <DropdownMenuItem onClick={handleLogout}>Sair</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
                     </div>
                 </DropdownMenuContent>
             </DropdownMenu>
