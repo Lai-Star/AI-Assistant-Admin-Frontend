@@ -45,7 +45,7 @@ const CompanyEdit = () => {
                     'Authorization': `${localStorage.getItem('access_token')}`,  // Use the appropriate header name
                     'Content-Type': 'application/json',  // Set content type if necessary
                 }
-                const response = await axios.get(`http://${config.serverUrl}/api/companies/${id}`, {
+                const response = await axios.get(`https://${config.serverUrl}/api/companies/${id}`, {
                     headers
                     // params: {
                     //     id: id
@@ -97,7 +97,7 @@ const CompanyEdit = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`http://${config.serverUrl}/api/companies/save`, formData, {
+            await axios.post(`https://${config.serverUrl}/api/companies/save`, formData, {
                 headers
             })
             toast({

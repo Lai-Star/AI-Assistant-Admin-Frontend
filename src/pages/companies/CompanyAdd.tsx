@@ -64,7 +64,7 @@ const CompanyAdd = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`http://${config.serverUrl}/api/companies/save`,
+            await axios.post(`https://${config.serverUrl}/api/companies/save`,
                 formData,
                 {
                     headers

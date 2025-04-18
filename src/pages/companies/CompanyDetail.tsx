@@ -28,7 +28,7 @@ const CompanyDetail: React.FC<CompanyDetailProps> = ({ companyId, onClose }) => 
           'Content-Type': 'application/json',
         };
         const response = await axios.get(
-          `http://${config.serverUrl}/api/companies/${companyId}`,
+          `https://${config.serverUrl}/api/companies/${companyId}`,
           {
             headers
           }
