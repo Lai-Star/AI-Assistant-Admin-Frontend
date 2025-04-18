@@ -183,13 +183,16 @@ const CompanyList: React.FC = () => {
                                                     <td className="px-4 py-2 text-right">
                                                         <button className="text-black-500 mr-2" onClick={() => openDetail(company.id)}>
                                                             {/* <Eye className="inline-block w-5 h-5" /> */}
+                                                            View
                                                         </button>
                                                         <button className="text-black-500 mr-2" onClick={() => navigate(`/companies/edit/${company.id}`)}>
                                                             {/* <Edit className="inline-block w-5 h-5" /> */}
+                                                            Edit
                                                         </button>
-                                                        <button className="text-black-500" onClick={() => openModal(company.id)}>
-                                                            {/* <Trash className="inline-block w-5 h-5" /> */}
-                                                        </button>
+                                                        {/* <button className="text-black-500" onClick={() => openModal(company.id)}>
+                                                            <Trash className="inline-block w-5 h-5" />
+                                                            Delete
+                                                        </button> */}
                                                     </td>
                                                 </tr>
                                             ))}
