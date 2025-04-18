@@ -1,3 +1,3 @@
 export default ({
-    serverUrl: '192.168.17.11:8000'
+    serverUrl: 'https://ai-assistant-admin-backend-jp.onrender.com/'
 })
