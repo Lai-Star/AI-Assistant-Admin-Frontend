@@ -90,10 +90,10 @@ const CompanyList: React.FC = () => {
         }
     };
 
-    const openModal = (companyId: string) => {
-        setSelectedCompanyId(companyId);
-        setIsModalOpen(true);
-    };
+    // const openModal = (companyId: string) => {
+    //     setSelectedCompanyId(companyId);
+    //     setIsModalOpen(true);
+    // };
 
     const closeModal = () => {
         setIsModalOpen(false);
