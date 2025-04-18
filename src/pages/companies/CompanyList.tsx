@@ -51,7 +51,7 @@ const CompanyList: React.FC = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.get(`http://${config.serverUrl}/api/companies/all`, {
+            const response = await axios.get(`https://${config.serverUrl}/api/companies/all`, {
                 headers,
                 params: {
                     page,

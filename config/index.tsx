@@ -1,3 +1,3 @@
 export default ({
-    serverUrl: 'https://ai-assistant-admin-backend-jp.onrender.com'
+    serverUrl: 'ai-assistant-admin-backend-jp.onrender.com'
 })
