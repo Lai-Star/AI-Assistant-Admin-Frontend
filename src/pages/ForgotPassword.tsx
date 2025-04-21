@@ -23,7 +23,7 @@ const ForgotPassword: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const response = await axios.post('http://localhost:3000/send-reset-email', { email })
+            const response = await axios.post('https://localhost:3000/send-reset-email', { email })
             setMessage(response.data.message)
         } catch (error) {
             toast({
@@ -60,12 +60,12 @@ const ForgotPassword: React.FC = () => {
                         </div>
                         <CardHeader className="px-6 pt-10 pb-3">
                             <CardTitle style={{ color: '#0290A4' }} className="text-left text-xl font-semibold">
-                                Recuperação de senha
+                                Password recovery
                             </CardTitle>
                         </CardHeader>
                         <CardHeader className="px-6 pt-0">
                             <CardTitle className="text-left font-semibold">
-                                Insira seu e-mail para recuperar sua senha
+                                Enter your email to recover your password
                             </CardTitle>
                         </CardHeader>
 
@@ -89,7 +89,7 @@ const ForgotPassword: React.FC = () => {
                                         style={{ backgroundColor: '#0290A4' }}
                                         className="w-full"
                                     >
-                                        Recuperar
+                                        Recover
                                     </Button>
                                 </div>
                             </form>
@@ -102,7 +102,7 @@ const ForgotPassword: React.FC = () => {
                             <div className="flex gap-1">
                                 <img style={{ width: '20px' }} src={backlogin} alt="Back to login" />
                                 <a href="/login" className="text-sm text-center text-gray-600 hover:underline">
-                                    Voltar para o login
+                                Back to login
                                 </a>
                             </div>
                         </CardFooter>

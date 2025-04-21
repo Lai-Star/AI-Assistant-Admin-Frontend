@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Layout from '@/layouts/Layout.tsx'
 import config from '../../../config/index.tsx'
 import { Input } from '@/components/ui/input.tsx'
@@ -13,29 +14,35 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const companySchema = z
+const userSchema = z
     .object({
-        name: z.string().regex(/^[A-Za-z\s]+$/, 'The name must contain only letters'),
-        leaderName: z.string(),
+        name: z.string(),
+        userGroup: z.string(),
         email: z.string().email('Please enter a valid email address'),
-        // registration: z.string().regex(/^\d+$/, 'A matrícula deve conter apenas números'),
         password: z
             .string()
             .min(6, 'Password must be at least 6 characters long'),
-            // .regex(/^[a-zA-Z0-9]+$/, 'A senha deve ser alfanumérica'),
         confirmationPassword: z
             .string()
             .min(6, 'Password must be at least 6 characters long')
-            // .regex(/^[a-zA-Z0-9]+$/, 'A senha deve ser alfanumérica')
     })
     .refine((data) => data.password === data.confirmationPassword, {
         path: ['confirmationPassword'],
         message: 'Passwords do not match'
     })
 
-// type CompanySchema = z.infer<typeof companySchema>;
+type userSchema = z.infer<typeof userSchema>;
 
-const CompanyAdd = () => {
+interface UserGroup {
+    id: string;
+    name: string;
+    company_name: string;
+    member_cnt: number;
+    created_at: string;
+}
+
+const UserAdd = () => {
+    const [userGroups, setUserGroups] = useState<UserGroup[]>([]);
     // const [error, setError] = useState('')
     const navigate = useNavigate()
     const { toast } = useToast()
@@ -46,19 +53,38 @@ const CompanyAdd = () => {
         watch,
         formState: { errors, isValid }
     } = useForm({
-        resolver: zodResolver(companySchema),
+        resolver: zodResolver(userSchema),
         mode: 'onChange'
     })
 
+    const fetchUserGroups = async () => {
+        try {
+            const headers = {
+                'Authorization': `${localStorage.getItem('access_token')}`,
+                'Content-Type': 'application/json',
+            };
+
+            const response = await axios.get(`https://${config.serverUrl}/api/user-group/all`, {
+                headers,
+            });
+
+            setUserGroups(response.data.data);
+        } catch (error) {
+            console.error('Error when searching user groups', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserGroups();
+    }, []);
+
     const onSubmit = async (data: any) => {
-        console.log(data)
-        const { name, leaderName, email, registration, password, confirmationPassword } = data
-        console.log('Data sent:', { name, leaderName, email, registration, password })
+        const { name, userGroup, email, password, confirmationPassword } = data
+        console.log('Data sent:', { name, userGroup })
         const formData = {
             name,
-            leaderName,
+            userGroup: 'HR Department',
             email,
-            registration,
             password,
             confirmationPassword
         }
@@ -67,7 +93,7 @@ const CompanyAdd = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`https://${config.serverUrl}/api/companies/save`,
+            await axios.post(`https://${config.serverUrl}/api/users/save`,
                 formData,
                 {
                     headers
@@ -78,7 +104,7 @@ const CompanyAdd = () => {
                 variant: 'success'
             })
             setTimeout(() => {
-                navigate('/companies/list')
+                navigate('/users/list')
                 // setError('')
             }, 3000)
             // setError('')
@@ -97,29 +123,29 @@ const CompanyAdd = () => {
             variant: 'cancel'
         })
         setTimeout(() => {
-            navigate('/companies/list')
+            navigate('/users/list')
             // setError('')
         }, 2000)
     }
 
-    const breadcrumbItems = [{ label: 'Companies' }, { label: 'Company Registration' }]
+    const breadcrumbItems = [{ label: 'Users' }, { label: 'User Registration' }]
 
     return (
         <Layout>
             <Toaster />
             <BreadcrumbComponent items={breadcrumbItems} />
             <div className="flex flex-row items-center">
-                <Link to="/companies/list" className="text-4xl text-black p-1">
+                <Link to="/users/list" className="text-4xl text-black p-1">
                     &lt;
                 </Link>
-                <h1 className="text-black text-2xl font-bold"> Company Registration</h1>
+                <h1 className="text-black text-2xl font-bold"> User Registration</h1>
             </div>
             <div className="p-4">
                 <div className="">
                     <Card className="">
                         <CardContent>
                             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                                Company Data
+                                User Data
                                 <Separator className="my-4" />
                                 <div className="flex gap-x-4">
                                     <div className="w-1/2">
@@ -141,76 +167,24 @@ const CompanyAdd = () => {
                                         {errors.name && <p className="text-red-500">{(errors.name as any).message}</p>}
                                     </div>
                                     <div className="w-1/2">
-                                        <input type='file' />
-                                    </div>
-                                    {/* <div className="w-1/2">
-                                        <Input
-                                            type="text"
-                                            id="registration"
-                                            name="registration"
-                                            placeholder="Enter your registration number"
+                                        <select
+                                            id="userGroup"
                                             required
-                                            {...register('registration')}
-                                            className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.registration
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('registration') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
-                                                }`}
-                                        />
-                                        {errors.registration && (
-                                            <p className="text-red-500">{errors.registration.message}</p>
-                                        )}
-                                        <span className="text-xs text-black-500 float-right">
-                                            • Mín. 4 Letras | • Máx. 10 Caracteres
-                                        </span>
-                                    </div> */}
+                                            {...register('userGroup')}
+                                            className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200`}
+                                        >
+                                            {userGroups.map((userGroup) => (
+                                                    <option key={userGroup.id} value={userGroup.id}>{userGroup.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
-                                {/* <div className="w-1/2">
-                                    <Input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        placeholder="Submit or Email*"
-                                        required
-                                        {...register('email')}
-                                        className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.email
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('email') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
-                                                }`}
-                                    />
-                                    {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-                                    <span className="text-xs text-black-500 float-right">• Máx 40 Caracteres</span>
-                                </div> */}
-                                {/* Access data */}
-                                <Separator className="my-4" />
                                 <div className="flex gap-x-4">
-                                    <div className="w-1/2">
-                                        <Input
-                                            type="leaderName"
-                                            id="leaderName"
-                                            placeholder="leader name"
-                                            required
-                                            {...register('leaderName')}
-                                            className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.leaderName
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('leaderName') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
-                                                }`}
-                                        />
-                                    </div>
-
                                     <div className="w-1/2 ">
                                         <Input
                                             type="email"
                                             id="email"
-                                            placeholder="email"
+                                            placeholder="Email"
                                             required
                                             {...register('email')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
@@ -261,6 +235,7 @@ const CompanyAdd = () => {
                                         {errors.confirmationPassword && <p className="text-red-500">{(errors.confirmationPassword as any).message}</p>}
                                     </div>
                                 </div>
+                                <Separator className="my-4" />
                                 <div className="flex justify-end gap-2">
                                     <Button
                                         type="submit"
@@ -286,4 +261,4 @@ const CompanyAdd = () => {
     )
 }
 
-export default CompanyAdd
+export default UserAdd
