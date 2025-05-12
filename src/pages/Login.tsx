@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -93,8 +92,8 @@ const Login: React.FC = () => {
                                     </Label>
                                     <Input
                                         className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 ${errors.email
-                                                ? 'border-b-red-800 border-2 placeholder-red-500 text-red-500'
-                                                : 'border-green-500'
+                                            ? 'border-b-red-800 border-2 placeholder-red-500 text-red-500'
+                                            : 'border-green-500'
                                             }`}
                                         type="email"
                                         placeholder="Email or Registration Number"
@@ -113,8 +112,8 @@ const Login: React.FC = () => {
                                     </Label>
                                     <Input
                                         className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 ${errors.password
-                                                ? 'border-b-red-800 border-2 placeholder-red-500 text-red-500'
-                                                : 'border-green-500'
+                                            ? 'border-b-red-800 border-2 placeholder-red-500 text-red-500'
+                                            : 'border-green-500'
                                             }`}
                                         type="password"
                                         placeholder="Password"

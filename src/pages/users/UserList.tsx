@@ -5,7 +5,7 @@ import config from '../../../config/index';
 import { Card, CardContent } from '@/components/ui/card';
 // import { Eye, Edit, Trash } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import UserDetail from '@/pages/users/UserDetail';
 import TitleComponent from '@/components/TitleComponent';
