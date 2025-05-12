@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
@@ -28,46 +27,46 @@ const Sidebar: React.FC = () => {
 
   const toggleSideBar = () => {
     if (SideBarStatus) {
-        let mainsDiv = document.querySelectorAll<HTMLElement>('.main-div');
-        mainsDiv.forEach((div) => {
-            div.classList.add("w-32");
-            div.classList.remove("w-72");
-        });
+      let mainsDiv = document.querySelectorAll<HTMLElement>('.main-div');
+      mainsDiv.forEach((div) => {
+        div.classList.add("w-32");
+        div.classList.remove("w-72");
+      });
 
-        const AllsP = document.querySelectorAll<HTMLElement>('#remove-p');
-        AllsP.forEach((p) => {
-            p.style.display = "none"; // Now TypeScript knows p is an HTMLElement
-        });
+      const AllsP = document.querySelectorAll<HTMLElement>('#remove-p');
+      AllsP.forEach((p) => {
+        p.style.display = "none"; // Now TypeScript knows p is an HTMLElement
+      });
 
-        SetUserLink(false);
+      SetUserLink(false);
 
-        const sideBarArrow = document.querySelector<HTMLElement>(".sideBarArrow");
-        if (sideBarArrow) {
-            sideBarArrow.style.transform = "rotate(180deg)";
-            sideBarArrow.style.left = "80px";
-        }
+      const sideBarArrow = document.querySelector<HTMLElement>(".sideBarArrow");
+      if (sideBarArrow) {
+        sideBarArrow.style.transform = "rotate(180deg)";
+        sideBarArrow.style.left = "80px";
+      }
     } else {
-        let mainsDiv = document.querySelectorAll<HTMLElement>('.main-div');
+      let mainsDiv = document.querySelectorAll<HTMLElement>('.main-div');
 
-        mainsDiv.forEach((div) => {
-            div.classList.add("w-72");
-            div.classList.remove("w-32");
-        });
+      mainsDiv.forEach((div) => {
+        div.classList.add("w-72");
+        div.classList.remove("w-32");
+      });
 
-        const AllsP = document.querySelectorAll<HTMLElement>('#remove-p');
-        AllsP.forEach((p) => {
-            p.style.display = "block"; // Now TypeScript knows p is an HTMLElement
-        });
+      const AllsP = document.querySelectorAll<HTMLElement>('#remove-p');
+      AllsP.forEach((p) => {
+        p.style.display = "block"; // Now TypeScript knows p is an HTMLElement
+      });
 
-        const sideBarArrow = document.querySelector<HTMLElement>(".sideBarArrow");
-        if (sideBarArrow) {
-            sideBarArrow.style.transform = "rotate(360deg)";
-            sideBarArrow.style.left = "240px";
-        }
+      const sideBarArrow = document.querySelector<HTMLElement>(".sideBarArrow");
+      if (sideBarArrow) {
+        sideBarArrow.style.transform = "rotate(360deg)";
+        sideBarArrow.style.left = "240px";
+      }
 
-        if (pathname === "/companies") {
-            SetUserLink(true);
-        }
+      if (pathname === "/companies") {
+        SetUserLink(true);
+      }
     }
     SetSidebar(!SideBarStatus);
   };
@@ -188,6 +187,25 @@ const Sidebar: React.FC = () => {
                 <img src={IconSideUser} />
                 <p id="remove-p" className="text-sm">
                   UserGroups
+                </p>
+              </div>
+            </Link>
+            <Link
+              to={"/api-testing"}
+              className={classNames(
+                pathname === "/api-testing"
+                  ? "text-sm bg-custom-active text-black font-extrabold"
+                  : "text-white text-sm font-extrabold",
+                linkSubClass
+              )}
+            >
+              <div
+                style={{ marginLeft: "1rem", marginTop: "0" }}
+                className={linkClass}
+              >
+                <img src={IconSideUser} />
+                <p id="remove-p" className="text-sm">
+                  API Testing
                 </p>
               </div>
             </Link>

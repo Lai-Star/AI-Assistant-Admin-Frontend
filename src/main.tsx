@@ -19,6 +19,8 @@ import UserGroupList from '@/pages/userGroups/UserGroupList.tsx'
 import UserGroupAdd from '@/pages/userGroups/UserGroupAdd.tsx'
 import UserGroupEdit from '@/pages/userGroups/UserGroupEdit.tsx'
 
+import APITesting from '@/pages/APITesting.tsx'
+
 import Login from '@/pages/Login.tsx'
 import Loading from './pages/Loading.tsx'
 
@@ -91,6 +93,10 @@ const router = createBrowserRouter([
     {
         path: '/loading',
         element: <Loading />
+    },
+    {
+        path: '/api-testing',
+        element: <APITesting />
     }
     // TODO: Para garantir segurança nas rotas importante deixar privada e para isso descomentar o código
     // {
