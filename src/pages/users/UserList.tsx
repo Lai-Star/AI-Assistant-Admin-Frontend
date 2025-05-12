@@ -46,7 +46,7 @@ const UserList: React.FC = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.get(`https://${config.serverUrl}/api/users/all`, {
+            const response = await axios.get(`${config.serverUrl}/api/users/all`, {
                 headers,
                 params: {
                     page,
@@ -54,7 +54,7 @@ const UserList: React.FC = () => {
                     name: searchTerm,
                 },
             });
-console.log(response.data.data)
+            console.log(response.data.data)
             setUsers(response.data.data);
             setTotalItems(response.data.meta.total);
             setTotalPages(response.data.meta.total_pages);
@@ -99,7 +99,7 @@ console.log(response.data.data)
         if (!selectedUserId) return;
 
         try {
-            await axios.delete(`https://${config.serverUrl}/users/${selectedUserId}`);
+            await axios.delete(`${config.serverUrl}/users/${selectedUserId}`);
             toast({
                 title: 'Deletion Completed!',
                 variant: 'success',
@@ -209,7 +209,7 @@ console.log(response.data.data)
                         {isDetailOpen && <UserDetail userId={selectedUserId} onClose={closeDetail} />}
                     </div>
                 </Card>
-                
+
                 {/* Pagination controls */}
                 {/* <Pagination /> */}
                 <div className="flex justify-between mt-4">

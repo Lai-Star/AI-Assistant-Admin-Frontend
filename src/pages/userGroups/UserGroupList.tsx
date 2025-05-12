@@ -46,7 +46,7 @@ const UserGroupList: React.FC = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.get(`https://${config.serverUrl}/api/user-group/all`, {
+            const response = await axios.get(`${config.serverUrl}/api/user-group/all`, {
                 headers,
                 params: {
                     page,
@@ -101,7 +101,7 @@ const UserGroupList: React.FC = () => {
         if (!selectedUserGroupId) return;
 
         try {
-            await axios.delete(`https://${config.serverUrl}/users/${selectedUserGroupId}`);
+            await axios.delete(`${config.serverUrl}/users/${selectedUserGroupId}`);
             toast({
                 title: 'Deletion Completed!',
                 variant: 'success',
@@ -211,7 +211,7 @@ const UserGroupList: React.FC = () => {
                         {isDetailOpen && <UserGroupDetail userGroupId={selectedUserGroupId} onClose={closeDetail} />}
                     </div>
                 </Card>
-                
+
                 {/* Pagination controls */}
                 {/* <Pagination /> */}
                 <div className="flex justify-between mt-4">

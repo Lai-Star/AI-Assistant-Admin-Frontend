@@ -1,4 +1,4 @@
 export default ({
-    serverUrl: 'ai-assistant-admin-backend-jp.onrender.com'
+    serverUrl: 'http://localhost:8001'
     // serverUrl: '192.168.17.12:5005'
 })

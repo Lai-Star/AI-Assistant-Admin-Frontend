@@ -27,7 +27,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ userId, onClose }) => {
           'Content-Type': 'application/json',
         };
         const response = await axios.get(
-          `https://${config.serverUrl}/api/users/${userId}`,
+          `${config.serverUrl}/api/users/${userId}`,
           {
             headers
           }

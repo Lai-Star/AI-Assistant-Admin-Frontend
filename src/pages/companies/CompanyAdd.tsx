@@ -22,11 +22,11 @@ const companySchema = z
         password: z
             .string()
             .min(6, 'Password must be at least 6 characters long'),
-            // .regex(/^[a-zA-Z0-9]+$/, 'A senha deve ser alfanumérica'),
+        // .regex(/^[a-zA-Z0-9]+$/, 'A senha deve ser alfanumérica'),
         confirmationPassword: z
             .string()
             .min(6, 'Password must be at least 6 characters long')
-            // .regex(/^[a-zA-Z0-9]+$/, 'A senha deve ser alfanumérica')
+        // .regex(/^[a-zA-Z0-9]+$/, 'A senha deve ser alfanumérica')
     })
     .refine((data) => data.password === data.confirmationPassword, {
         path: ['confirmationPassword'],
@@ -67,7 +67,7 @@ const CompanyAdd = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`https://${config.serverUrl}/api/companies/save`,
+            await axios.post(`${config.serverUrl}/api/companies/save`,
                 formData,
                 {
                     headers
@@ -131,11 +131,10 @@ const CompanyAdd = () => {
                                             {...register('name')}
                                             // className={`border p-2 w-full ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.name
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('name') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                ${errors.name
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('name') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
                                                 }`}
                                         />
                                         {errors.name && <p className="text-red-500">{(errors.name as any).message}</p>}
@@ -197,11 +196,10 @@ const CompanyAdd = () => {
                                             required
                                             {...register('leaderName')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.leaderName
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('leaderName') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                ${errors.leaderName
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('leaderName') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
                                                 }`}
                                         />
                                     </div>
@@ -214,12 +212,11 @@ const CompanyAdd = () => {
                                             required
                                             {...register('email')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                        ${
-                                            errors.email
-                                                ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                : watch('email') &&
-                                                  'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
-                                        }`}
+                                        ${errors.email
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('email') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                }`}
                                         />
                                         {errors.email && <p className="text-red-500">{(errors.email as any).message}</p>}
                                     </div>
@@ -233,12 +230,11 @@ const CompanyAdd = () => {
                                             required
                                             {...register('password')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                        ${
-                                            errors.password
-                                                ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                : watch('password') &&
-                                                  'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
-                                        }`}
+                                        ${errors.password
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('password') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                }`}
                                         />
                                         {errors.password && <p className="text-red-500">{(errors.password as any).message}</p>}
                                     </div>
@@ -251,11 +247,10 @@ const CompanyAdd = () => {
                                             required
                                             {...register('confirmationPassword')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.confirmationPassword
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('confirmationPassword') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                ${errors.confirmationPassword
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('confirmationPassword') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
                                                 }`}
                                         />
                                         {errors.confirmationPassword && <p className="text-red-500">{(errors.confirmationPassword as any).message}</p>}

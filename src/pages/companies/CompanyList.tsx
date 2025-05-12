@@ -51,7 +51,7 @@ const CompanyList: React.FC = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.get(`https://${config.serverUrl}/api/companies/all`, {
+            const response = await axios.get(`${config.serverUrl}/api/companies/all`, {
                 headers,
                 params: {
                     page,
@@ -104,7 +104,7 @@ const CompanyList: React.FC = () => {
         if (!selectedCompanyId) return;
 
         try {
-            await axios.delete(`https://${config.serverUrl}/companies/${selectedCompanyId}`);
+            await axios.delete(`${config.serverUrl}/companies/${selectedCompanyId}`);
             toast({
                 title: 'Deletion Completed!',
                 variant: 'success',
@@ -216,7 +216,7 @@ const CompanyList: React.FC = () => {
                         {isDetailOpen && <CompanyDetail companyId={selectedCompanyId} onClose={closeDetail} />}
                     </div>
                 </Card>
-                
+
                 {/* Pagination controls */}
                 {/* <Pagination /> */}
                 <div className="flex justify-between mt-4">

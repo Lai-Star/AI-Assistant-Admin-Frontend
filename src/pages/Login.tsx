@@ -33,7 +33,7 @@ const Login: React.FC = () => {
 
     const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
         try {
-            const response = await axios.post(`https://${config.serverUrl}/api/auth/login`, {
+            const response = await axios.post(`${config.serverUrl}/api/auth/login`, {
                 email: data.email,
                 password: data.password,
             });
@@ -86,18 +86,16 @@ const Login: React.FC = () => {
                                 <div>
                                     <Label
                                         htmlFor="email"
-                                        className={`block text-sm font-medium mb-2 ${
-                                            errors.email ? 'text-red-500' : 'text-gray-700'
-                                        }`}
+                                        className={`block text-sm font-medium mb-2 ${errors.email ? 'text-red-500' : 'text-gray-700'
+                                            }`}
                                     >
                                         Email
                                     </Label>
                                     <Input
-                                        className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 ${
-                                            errors.email
+                                        className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 ${errors.email
                                                 ? 'border-b-red-800 border-2 placeholder-red-500 text-red-500'
                                                 : 'border-green-500'
-                                        }`}
+                                            }`}
                                         type="email"
                                         placeholder="Email or Registration Number"
                                         {...register('email', { required: true })}
@@ -109,17 +107,15 @@ const Login: React.FC = () => {
 
                                 {/* Password Field */}
                                 <div>
-                                    <Label htmlFor="password" className={`block text-sm font-medium mb-2 ${
-                                        errors.password ? 'text-red-500' : 'text-gray-700'
-                                    }`}>
+                                    <Label htmlFor="password" className={`block text-sm font-medium mb-2 ${errors.password ? 'text-red-500' : 'text-gray-700'
+                                        }`}>
                                         Password
                                     </Label>
                                     <Input
-                                        className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 ${
-                                            errors.password
+                                        className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 ${errors.password
                                                 ? 'border-b-red-800 border-2 placeholder-red-500 text-red-500'
                                                 : 'border-green-500'
-                                        }`}
+                                            }`}
                                         type="password"
                                         placeholder="Password"
                                         {...register('password', { required: true, minLength: 5 })}

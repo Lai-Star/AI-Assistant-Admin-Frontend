@@ -24,10 +24,10 @@ const companySchema = z
         // password: z.string().optional().or(z.literal('')),
         // confirmationPassword: z.string().optional().or(z.literal(''))
     })
-    // .refine((data) => data.password === data.confirmationPassword, {
-    //     path: ['confirmationPassword'],
-    //     message: 'Passwords do not match'
-    // })
+// .refine((data) => data.password === data.confirmationPassword, {
+//     path: ['confirmationPassword'],
+//     message: 'Passwords do not match'
+// })
 
 type companyFormInputs = z.infer<typeof companySchema>
 
@@ -45,7 +45,7 @@ const CompanyEdit = () => {
                     'Authorization': `${localStorage.getItem('access_token')}`,  // Use the appropriate header name
                     'Content-Type': 'application/json',  // Set content type if necessary
                 }
-                const response = await axios.get(`https://${config.serverUrl}/api/companies/${id}`, {
+                const response = await axios.get(`${config.serverUrl}/api/companies/${id}`, {
                     headers
                     // params: {
                     //     id: id
@@ -97,7 +97,7 @@ const CompanyEdit = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`https://${config.serverUrl}/api/companies/save`, formData, {
+            await axios.post(`${config.serverUrl}/api/companies/save`, formData, {
                 headers
             })
             toast({
@@ -238,12 +238,11 @@ const CompanyEdit = () => {
                                     </Button>
                                     <Button
                                         type="submit"
-                                        className={`bg-primary-400 text-white px-4 py-2 ${
-                                            !isValid || !watchedFields.some((field) => field !== '')
-                                                ? 'bg-primary-200 opacity-50 cursor-not-allowed'
-                                                : ''
-                                        }`}
-                                        // disabled={!isValid || !watchedFields.some((field) => field !== '')}
+                                        className={`bg-primary-400 text-white px-4 py-2 ${!isValid || !watchedFields.some((field) => field !== '')
+                                            ? 'bg-primary-200 opacity-50 cursor-not-allowed'
+                                            : ''
+                                            }`}
+                                    // disabled={!isValid || !watchedFields.some((field) => field !== '')}
                                     >
                                         Save
                                     </Button>

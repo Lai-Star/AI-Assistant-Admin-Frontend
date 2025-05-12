@@ -36,7 +36,7 @@ const UserGroupEdit = () => {
                     'Authorization': `${localStorage.getItem('access_token')}`,  // Use the appropriate header name
                     'Content-Type': 'application/json',  // Set content type if necessary
                 }
-                const response = await axios.get(`https://${config.serverUrl}/api/user-group/${id}`, {
+                const response = await axios.get(`${config.serverUrl}/api/user-group/${id}`, {
                     headers
                     // params: {
                     //     id: id
@@ -82,7 +82,7 @@ const UserGroupEdit = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`https://${config.serverUrl}/api/user-group/save`, formData, {
+            await axios.post(`${config.serverUrl}/api/user-group/save`, formData, {
                 headers
             })
             toast({
@@ -158,12 +158,11 @@ const UserGroupEdit = () => {
                                     </Button>
                                     <Button
                                         type="submit"
-                                        className={`bg-primary-400 text-white px-4 py-2 ${
-                                            !isValid || !watchedFields.some((field) => field !== '')
-                                                ? 'bg-primary-200 opacity-50 cursor-not-allowed'
-                                                : ''
-                                        }`}
-                                        // disabled={!isValid || !watchedFields.some((field) => field !== '')}
+                                        className={`bg-primary-400 text-white px-4 py-2 ${!isValid || !watchedFields.some((field) => field !== '')
+                                            ? 'bg-primary-200 opacity-50 cursor-not-allowed'
+                                            : ''
+                                            }`}
+                                    // disabled={!isValid || !watchedFields.some((field) => field !== '')}
                                     >
                                         Save
                                     </Button>

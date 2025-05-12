@@ -64,7 +64,7 @@ const UserAdd = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.get(`https://${config.serverUrl}/api/user-group/all`, {
+            const response = await axios.get(`${config.serverUrl}/api/user-group/all`, {
                 headers,
             });
 
@@ -93,7 +93,7 @@ const UserAdd = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`https://${config.serverUrl}/api/users/save`,
+            await axios.post(`${config.serverUrl}/api/users/save`,
                 formData,
                 {
                     headers
@@ -157,11 +157,10 @@ const UserAdd = () => {
                                             {...register('name')}
                                             // className={`border p-2 w-full ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.name
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('name') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                ${errors.name
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('name') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
                                                 }`}
                                         />
                                         {errors.name && <p className="text-red-500">{(errors.name as any).message}</p>}
@@ -174,7 +173,7 @@ const UserAdd = () => {
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200`}
                                         >
                                             {userGroups.map((userGroup) => (
-                                                    <option key={userGroup.id} value={userGroup.id}>{userGroup.name}</option>
+                                                <option key={userGroup.id} value={userGroup.id}>{userGroup.name}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -188,12 +187,11 @@ const UserAdd = () => {
                                             required
                                             {...register('email')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                        ${
-                                            errors.email
-                                                ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                : watch('email') &&
-                                                  'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
-                                        }`}
+                                        ${errors.email
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('email') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                }`}
                                         />
                                         {errors.email && <p className="text-red-500">{(errors.email as any).message}</p>}
                                     </div>
@@ -207,12 +205,11 @@ const UserAdd = () => {
                                             required
                                             {...register('password')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                        ${
-                                            errors.password
-                                                ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                : watch('password') &&
-                                                  'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
-                                        }`}
+                                        ${errors.password
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('password') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                }`}
                                         />
                                         {errors.password && <p className="text-red-500">{(errors.password as any).message}</p>}
                                     </div>
@@ -225,11 +222,10 @@ const UserAdd = () => {
                                             required
                                             {...register('confirmationPassword')}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.confirmationPassword
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('confirmationPassword') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                ${errors.confirmationPassword
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('confirmationPassword') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
                                                 }`}
                                         />
                                         {errors.confirmationPassword && <p className="text-red-500">{(errors.confirmationPassword as any).message}</p>}

@@ -47,7 +47,7 @@ const UserGroupAdd = () => {
             'Content-Type': 'application/json',  // Set content type if necessary
         }
         try {
-            await axios.post(`https://${config.serverUrl}/api/user-group/save`,
+            await axios.post(`${config.serverUrl}/api/user-group/save`,
                 formData,
                 {
                     headers
@@ -111,11 +111,10 @@ const UserGroupAdd = () => {
                                             {...register('name')}
                                             // className={`border p-2 w-full ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                                             className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 
-                                                ${
-                                                    errors.name
-                                                        ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
-                                                        : watch('name') &&
-                                                          'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
+                                                ${errors.name
+                                                    ? 'border-2 border-red-500 placeholder-red-500 text-red-500'
+                                                    : watch('name') &&
+                                                    'border-b-cyan-400 border-2 placeholder-green-500-500 text-green-600'
                                                 }`}
                                         />
                                         {errors.name && <p className="text-red-500">{(errors.name as any).message}</p>}
